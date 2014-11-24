@@ -28,7 +28,7 @@ def matchset(pattern, text):
     elif 'dot' == op:
         return set([text[1:]]) #your code
     elif 'oneof' == op:
-        return set([text[1:]]) if text[0] in x else matchset(pattern, text[1:])# your code here
+        return set([text[1:]]) if any(text.startswith(c) for c in x) else null   # your code here
     elif 'eol' == op:
         return set(['']) if text == '' else null
     elif 'star' == op:
