@@ -5,29 +5,13 @@ Created on 24 oct. 2014.
 '''
 
 import itertools
-from utils.utils import timedcall
+from utils.utils import timedcall, instrument_fn, c
 
 def imright(first, other):
     return other - first == 1
 
 def nextto(first, other):
     return abs(other-first) == 1
-
-''' tool for debugging '''
-def instrument_fn(fn, *args):
-    c.starts, c.items = 0, 0
-    result = fn(*args)
-    print '%s got %s with %5d iters over %7d items'%(fn.__name__, result, c.starts, c.items)
-
-def c(sequence):
-    """ Generate items in sequence; 
-    keeping counts as we go. c.starts is the number of sequences started; 
-    c.items is number of items generated
-    """
-    c.starts += 1
-    for item in sequence:
-        c.items += 1
-        yield item    
 
 ## initialize c.starts and c.items
 c.starts, c.items = 0, 0
@@ -108,7 +92,7 @@ def timedcalls(n, fn, *args):
     return min(times), average(times), max(times), result[0], result[1]
 
 if __name__ == '__main__':
-    answer1 = timedcalls(1, zebra_puzzle_his)
+    answer1 = timedcalls(1, zebra_puzzle)
     print 'The Zebra Puzzle answer is (%d %d)' % (answer1[3],answer1[4])
     print 'Timing result:\n\tmin %03f average %03f and max %03f for 5 sec duration; result is (%d %d)' % (timedcalls(5.0, zebra_puzzle))
     instrument_fn(zebra_puzzle)

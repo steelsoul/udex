@@ -11,8 +11,8 @@ usage:
 import time
 #import cProfile
 from utils.utils import timedcall
-from Cryptarithmetic.brute_force_solution import solve
-from Cryptarithmetic.solution_opt import faster_solve
+from brute_force_solution import solve
+from solution_opt import faster_solve
 
 examples = """TWO + TWO == FOUR
 A**2 + B**2 == C**2

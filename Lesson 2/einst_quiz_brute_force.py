@@ -11,6 +11,7 @@ The time to finish brute force was: 2286.1848865 (~38 min)
 
 import itertools
 import time
+import sys
 from utils.utils import timedcall
 
 
@@ -51,47 +52,15 @@ def zebra_puzzle():
                                                                                 print "Water drinks:", WATER, "Zebra owns: ", ZEBRA
                                                                                 return (WATER, ZEBRA)
         curr += 1.0 
-                                                                            
+                                                                     
 def t():
     t0 = time.clock()
     zebra_puzzle()
     t1 = time.clock()
     return t1-t0
 
-# def timedcall(fn, *args):
-#     "Call function with args; return the time in seconds and result."
-#     t0 = time.clock()
-#     result = fn(*args)
-#     t1 = time.clock()
-#     return t1-t0, result
-
 if __name__ == '__main__':
+    print sys.path
     (timeres, result) = timedcall(zebra_puzzle)
     print "The time to finish brute force was:", timeres
-    
-#     a = 0
-#     curr = 0.0
-#     return next((WATER, ZEBRA)
-#         for (red, green, ivory, yellow, blue) in orderings
-#         curr = curr+1 
-#         for (Englishman, Spaniard, Ukrainian, Japanese, Norwegian) in orderings
-#         for (dog, snails, fox, horse, ZEBRA) in orderings
-#         for (coffee, tea, milk, oj, WATER) in orderings
-#         for (OldGold, Kools, Chesterfields, LuckyStrike, Parliaments) in orderings
-#         a = a + 1
-#         print "Current progress is:", curr/5.0, "iteration:", a
-#         if Englishman is red
-#         if Spaniard is dog
-#         if coffee is green
-#         if Ukrainian is tea
-#         if imright(green, ivory)
-#         if OldGold is snails
-#         if Kools is middle
-#         if milk is middle
-#         if Norwegian is first
-#         if nextto(Chesterfields, fox)
-#         if nextto(Kools, horse)
-#         if LuckyStrike is oj
-#         if Japanese is Parliaments
-#         if Norwegian is blue
-                
+ 

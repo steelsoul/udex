@@ -4,7 +4,7 @@ Created on 16 дек. 2014 г.
 
 @author: Alexander
 '''
-
+# import Compilers.one_of_and_alt
 # ---------------
 # User Instructions
 #
@@ -12,10 +12,19 @@ Created on 16 дек. 2014 г.
 # that takes 2 inputs) as input and returns an n_ary function. 
 
 
+"""Given  binary function takes 2 inputs as input and returns an n_ary function 
+such that f(x,y,z) = f(x, f(y, z)), etc . Also allow f(x) = x."""
 def n_ary(f):
     def n_ary_f(x, *args):
         return x if not args else f(x, n_ary_f(*args))
     return n_ary_f
+
+def seq(x,y): return seq('seq', x, y)
+
+seq = n_ary(seq)
+# 
+# seq(lit('a'))
+# seq(lit('b'), lit('c'))
 
 
 def n_ary_mine(f):

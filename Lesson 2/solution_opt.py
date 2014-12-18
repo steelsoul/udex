@@ -47,5 +47,5 @@ def faster_solve(formula):
 
 if __name__ == '__main__':
     print compile_word("YOU")
-    print faster_solve("A + B + C == ABC")
+    print faster_solve("ODD + ODD == EVEN")
     pass
