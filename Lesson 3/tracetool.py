@@ -31,15 +31,11 @@ def trace(f):
         print '%s--> %s' % (trace.level*indent, signature)
         trace.level += 1
         try:
-            result = f(args[0])
-            if result == 1:
-                print '%s<-- %s == %s' % ((trace.level-1)*indent, signature, result)
-            trace.level -= 1
+            result = f(*args)
+            print '%s<-- %s == %s' % ((trace.level-1)*indent, signature, result)
         finally:
-            if result == 0: 
-                print '%s<-- %s == %s' % ((trace.level)*indent,signature,args[0])
-            # your code here
-        return 0# your code here
+            trace.level -= 1
+        return result
     trace.level = 0
     return _f
 
