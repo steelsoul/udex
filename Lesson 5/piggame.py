@@ -135,6 +135,21 @@ def max_wins(state):
     "The optimal pig strategy chooses an action with the highest win probability."
     return best_action(state, pig_actions, Q_pig, Pwin)
 
+@memo
+def win_diff(state):
+    "The utility of a state: here the winning differential (pos or neg)."
+    (p, me, you, pending) = state
+    if me + pending >= goal or you >= goal:
+        return (me + pending - you)
+    else:
+        return max(Q_pig(state, action, win_diff)
+                   for action in pig_actions(state))
+
+def max_diffs(state):
+    """A strategy that maximizes the expected difference between my final score
+    and my opponent's."""
+    return best_action(state, pig_actions, Q_pig, win_diff)
+
 def best_action(state, actions, Q, U):
     "Return the optimal action for a state, given U."
     def EU(action): return Q(state, action, U)
@@ -164,21 +179,24 @@ def test_max_wins():
     return 'tests pass'
 
 
+from collections import defaultdict	
+
+def story(): 
+	states = [State(0, me, you, pending)
+	for me in range(41) for you in range(41) for pending in range(41)
+	if me + pending <= goal]
+	
+	r = defaultdict(lambda: [0,0])
+	for s in states:
+		w, d = max_wins(s), max_diffs(s)
+		if w != d: 
+			i = 0 if (w=='roll') else 1
+			r[s.pending][i] += 1
+	for (delta, (wrolls, drolls)) in sorted(r.items()):
+		print ('%4d: %3d %3d' % (delta, wrolls, drolls))
+
 if __name__=='__main__':
     print(test())
     goal = 40
     print(test_max_wins())
-    goal = 100
-    A = max_wins
-    B = hold_at(25)
-    W = B
-    N = 0
-    while W==B and N < 100:
-        W = play_pig(A, B)
-        N = N+1
-        print 'A' if (W == A) else 'B'
-
-    if N > 100:
-        print ("%s never won game" % B.__name__)
-    else:
-        print ("%s wins in %d game" % (B.__name__, N))
+    story()

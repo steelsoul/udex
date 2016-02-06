@@ -148,10 +148,14 @@ def play_pig(A, B, dierolls=dierolls()):
             return strategies[state.p]
         elif state.you >= goal:
             return strategies[other[state.p]]
-        elif strategies[state.p](state) == 'hold':
-            state = hold(state)
-        else:
-            state = roll(state, next(dierolls))
+        else: 
+			result = strategies[state.p](state)    
+			if result == 'hold':        
+				state = hold(state)
+			elif result == 'roll':
+				state = roll(state, next(dierolls))
+			else:
+				return strategies[other[state.p]]
 
 other = {0:1, 1:0}
 State = namedtuple('State', 'p me you pending')
