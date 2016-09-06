@@ -1,3 +1,4 @@
+# -*- encoding: utf8 -*-
 # -----------------
 # User Instructions
 # 
@@ -30,8 +31,17 @@ def subway(**lines):
     """Define a subway map. Input is subway(linename='station1 station2...'...).
     Convert that and return a dict of the form: {station:{neighbor:line,...},...}"""
     ## your code here
-    d = dict(lines)
-    print ("Keys: ",d.keys())
+    def neighbours(station):
+        pass
+    
+    result = {}
+    dlines = dict(lines)
+    for key, values in dlines.items():
+        for v in values.split():
+            result[v] = neighbours(v)
+    #for i in lines: 
+    #    print i
+    #    print lines[i]
 
 boston = subway(
     blue='bowdoin government state aquarium maverick airport suffolk revere wonderland',
@@ -42,6 +52,13 @@ boston = subway(
 def ride(here, there, system=boston):
     "Return a path on the subway system from here to there."
     ## your code here
+    def successors(state):
+        pass
+    
+    def is_goal(state):
+        return state is there
+    
+    return shortest_path_search(here, successors, is_goal) 
 
 def longest_ride(system):
     """"Return the longest possible 'shortest path' 
@@ -94,4 +111,4 @@ def test_ride():
     assert len(path_states(longest_ride(boston))) == 16
     return 'test_ride passes'
 
-print (test_ride())
+print test_ride()
