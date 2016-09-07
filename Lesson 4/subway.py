@@ -31,17 +31,24 @@ def subway(**lines):
     """Define a subway map. Input is subway(linename='station1 station2...'...).
     Convert that and return a dict of the form: {station:{neighbor:line,...},...}"""
     ## your code here
-    def neighbours(station):
-        pass
+    result = dict()
     
-    result = {}
-    dlines = dict(lines)
-    for key, values in dlines.items():
+    def find_neighbours(station):
+        for k in lines:
+            line = lines[k].split()
+            if line.count(station) > 0:
+                idx = line.index(station)
+                d = result[station] if station in result else dict()
+                if idx >= 0 and idx+1 < len(line): 
+                    d[line[idx+1]] = k
+                if idx > 0 and idx <= len(line) - 1:
+                    d[line[idx-1]] = k
+                result[station] = d
+
+    for _, values in lines.items():
         for v in values.split():
-            result[v] = neighbours(v)
-    #for i in lines: 
-    #    print i
-    #    print lines[i]
+            find_neighbours(v)
+    #print result
 
 boston = subway(
     blue='bowdoin government state aquarium maverick airport suffolk revere wonderland',
